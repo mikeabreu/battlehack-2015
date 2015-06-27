@@ -35,4 +35,20 @@ return [
         'secret' => '',
     ],
 
+    // SOCIAL SERVICES
+    // TODO: Change redirects
+    'facebook' => [
+    'client_id' => '1459209504372923',
+    'client_secret' => '93b84169e32a1cad857c0ab7105c2762',
+    'redirect' => 'http://paydaycharity.org',
+    ],
+
+    'google' => [
+    'client_id' => '832042376397-g9gldd1bhps132no05i80favrvjk59vu.apps.googleusercontent.com',
+    'client_secret' => '_fd9OGTJmuHGAnAjFiZd-Sxs',
+    'redirect' => 'http://paydaycharity.org',
+    ],
+
+
+
 ];
