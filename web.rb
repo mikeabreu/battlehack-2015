@@ -62,11 +62,11 @@ class Payday < Sinatra::Base
         erb :index
     end
 
-    get '/client_token' do
-        Braintree::ClientToken.generate(
-            :customer_id => User.all(:uname => session[:uname])[0][:uid]
-            )
-    end
+#    get '/client_token' do
+#        Braintree::ClientToken.generate(
+#            :customer_id => User.all(:uname => session[:uname])[0][:uid]
+#            )
+#    end
 
     get '/create-user' do
         erb :createuser 
