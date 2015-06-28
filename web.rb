@@ -14,7 +14,7 @@ class User
     property :uid, Serial, :key=> true
     property :g_id, Text, :unique => true
     property :f_id, Text, :unique => true
-    property :bt_id, Text, :unique => true, :default => NULL
+    property :bt_id, Text, :unique => true, :default => "Null"
     property :admin, Boolean, :required => true, :default => false
     property :date_joined, DateTime, :default => Time.now
 end
@@ -73,7 +73,7 @@ class Payday < Sinatra::Base
     end
 
     get '/addbt' do
-        if(User.all(:g_id => session[:uname])[0][:bt_id]==NULL)
+        if(User.all(:g_id => session[:uname])[0][:bt_id]=="Null")
             result = Braintree::Customer.create(
                 :first_name => 'Anonymous',
                 :last_name => 'Donor',
