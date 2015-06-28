@@ -165,7 +165,7 @@
 }
 #login-body {
     display: flex;
-    justify-content: center
+    justify-content: center;
     background-color: #68b500;
     min-height: 400px;
 }
