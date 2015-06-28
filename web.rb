@@ -90,7 +90,7 @@ class Payday < Sinatra::Base
             #            @flags << "Username: " + session[:uname]
         end
         @clientToken = Braintree::ClientToken.generate(
-            :customer_id => User.all(:g_id => session[:uname])[0][:uid]
+            :customer_id => User.all(:g_id => session[:uname])[0][:bt_id]
             )
         erb :addbt
     end
