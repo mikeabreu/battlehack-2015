@@ -102,6 +102,10 @@ class Payday < Sinatra::Base
         redirect '/charities'
     end
     
+    get '/create' do
+        erb :createcharity
+    end
+    
     post '/auth' do
         @flags = Array.new
         if(Charity.count(:uname => params[:username])==0)
