@@ -1,3 +1,3 @@
 require './web.rb'
 # require '~/apps/my_sinatra_app/app.rb'
-run Payday
+Payday.run! :port => 80, :bind => '104.131.174.166'
