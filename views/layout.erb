@@ -1,15 +1,18 @@
 <html>
-	<head>
-		<title>
-			<%= @title %>
-		</title>
-		
-		<link rel="stylesheet" href="/css/main-styles.css">
-	</head>
-	<body>
-        <% @flags.each do |flag| %>
-            <p><%=  flag %></p>
+    <head>
+        <title>
+            <%= @title %>
+        </title>
+
+        <link rel="stylesheet" href="/css/main-styles.css">
+    </head>
+    <body>
+        <% if(@flags) %>
+            <% @flags.each do |flag| %>
+                <p><%=  flag %></p>
+            <% end %>
         <% end %>
+        
         <%= yield %>
-	</body>
+    </body>
 </html>
