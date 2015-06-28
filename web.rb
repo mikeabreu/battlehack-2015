@@ -96,7 +96,7 @@ class Payday < Sinatra::Base
         @flags = Array.new
         if(params[:g_id]!='')
             if(User.count(:g_id => params[:g_id])==0)
-                user = User.create(:g_id => params[:g_id], :bt_id => params[:bt_id])
+                user = User.create(:g_id => params[:g_id])
                 user.save
                 session[:uname]=params[:g_id]
                 redirect '/addbt'
@@ -106,7 +106,7 @@ class Payday < Sinatra::Base
             end                
         elsif(params[:f_id]!='')
             if(User.count(:f_id => params[:f_id])==0)
-                user = User.create(:f_id => params[:f_id], :bt_id => params[:bt_id])
+                user = User.create(:f_id => params[:f_id])
                 user.save
             else
                 @flags << 'Facebook ID already in use. Please try logging in'
