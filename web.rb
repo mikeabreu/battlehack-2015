@@ -14,7 +14,7 @@ class User
     property :uid, Serial, :key=> true
     property :g_id, Text, :unique => true
     property :f_id, Text, :unique => true
-    property :bt_id, Text, :unique => true
+    property :bt_id, Text, :unique => true, :default => NULL
     property :admin, Boolean, :required => true, :default => false
     property :date_joined, DateTime, :default => Time.now
 end
