@@ -63,14 +63,14 @@ class Payday < Sinatra::Base
     post '/create-user' do
         @flags = Array.new
         if(params[:g_id])
-            if(!Users.count(:g_id => params[:g_id]))
+            if(!User.count(:g_id => params[:g_id]))
                 user = User.create(:g_id => params[:g_id], :bt_id => params[:bt_id])
                 user.save
             else
                 @flags << 'Google ID already in use. Please try logging in'
             end                
         elsif(params[:f_id])
-            if(!Users.count(:f_id => params[:f_id]))
+            if(!User.count(:f_id => params[:f_id]))
                 user = User.create(:f_id => params[:f_id], :bt_id => params[:bt_id])
                 user.save
             else
