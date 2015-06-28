@@ -97,10 +97,14 @@ class Payday < Sinatra::Base
 
     get '/thankyou' do
         @amount = session[:amount]
-        @redirect_script = '<script>location.href="/"</script>'
+        @redirect_script = '<script>
+        setTimeout(function () {
+            location.href="/"
+        }, 10000);
+        </script>'
         erb :thankyou
     end
-    
+
     post '/checkout' do
         @flags = Array.new
         nonce = params[:payment_method_nonce]
