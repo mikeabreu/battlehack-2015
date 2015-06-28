@@ -1,0 +1,24 @@
+<table>
+    <thead>
+        <tr>
+            <th>Cid</th>
+            <th>Name</th>
+            <th>Uname/th>
+            <th>Password</th>
+            <th>Salt</th>
+            <th>Date Joined</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @charities.each do |user| %>
+        <tr>
+            <td><%= user[:cid] %></td>
+            <td><%= user[:name] %></td>
+            <td><%= user[:uname] %></td>
+            <td><%= user[:passhash] %></td>
+            <td><%= user[:salt] %></td>
+            <td><%= user[:date_joined] %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

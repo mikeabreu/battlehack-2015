@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'data_mapper'
+require 'bcrypt'
 #require 'omniauth'
 #require 'braintree'
 #require 'sendgrid'
@@ -81,7 +82,46 @@ class Payday < Sinatra::Base
             end
         end
     end
-
+    
+    post '/create' do
+        @flags = Array.new
+        j = params[:pass]==params[:pass2]
+        k = Charity.count(:uname => params[:username])==0
+        if(!j)
+            @flags << 'Passwords do not match'
+        end
+        if(!k)
+            @flags << 'Username Taken'
+        end
+        if(J&&K)
+            salt = BCrypt::Engine.generate_salt
+            hash = BCrypt::Engine.hash_secret params[:pass], salt
+            charity = Charity.new(:uname => params[:username], :name => params[:name], :passhash => hash, :salt => salt)
+            charity.save
+        end
+        redirect '/charities'
+    end
+    
+    post '/auth' do
+        @flags = Array.new
+        if(Charity.count(:uname => params[:username])==0)
+            @flags << 'Username not registered'
+        else
+            char = Charity.get(:uname => params[:username]) 
+            if((BCrypt::Engine.hash_secret params[:password], char[:salt])==char[:passhash])
+                @flags << "You are signed in as "+char[:name]
+            else
+                @flags << "Invalid Username/Password Combination"
+            end
+        end
+        erb :index
+    end
+    
+    get 'charities' do
+        @charites = Charity.all()
+        erb :charities
+    end
+    
     get '/login' do
         @google_login = '<meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="832042376397-g9gldd1bhps132no05i80favrvjk59vu.apps.googleusercontent.com">
