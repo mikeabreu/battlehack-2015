@@ -71,18 +71,22 @@ class Payday < Sinatra::Base
     get '/create-user' do
         erb :createuser 
     end
-    
+
     get '/addbt' do
-        result = Braintree::Customer.create(
-            :first_name => 'Anonymous',
-            :last_name => 'Donor',
-            :payment_method_nonce => nonce_from_the_client) 
-        if result.success?
-            user = User.all(:g_id => session[:user])[0]
-            user.update(:bt_id => result.customer.id)
-            redirect '/users'
+        if(User.all(:g_id => session[:user])[0][:bt_id]=='')
+            result = Braintree::Customer.create(
+                :first_name => 'Anonymous',
+                :last_name => 'Donor',
+                :payment_method_nonce => nonce_from_the_client) 
+            if result.success?
+                user = User.all(:g_id => session[:user])[0]
+                user.update(:bt_id => result.customer.id)
+                redirect '/users'
+            else
+                p result.errors
+            end
         else
-            p result.errors
+            redirect '/' 
         end
     end
 
