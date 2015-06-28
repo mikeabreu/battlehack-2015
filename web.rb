@@ -93,6 +93,7 @@ class Payday < Sinatra::Base
     end
 
     post '/checkout' do
+        @flags = Array.new
         nonce = params[:payment_method_nonce]
         result = Braintree::Transaction.sale(
             :amount => "100.00",
