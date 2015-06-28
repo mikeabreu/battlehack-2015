@@ -87,8 +87,18 @@ class Payday < Sinatra::Base
                 p result.errors
             end
         else
-            @flags << "Username: " + session[:uname]
+            #            @flags << "Username: " + session[:uname]
         end
+        erb :addbt
+    end
+
+    post '/checkout' do
+        nonce = params[:payment_method_nonce]
+        result = Braintree::Transaction.sale(
+            :amount => "100.00",
+            :payment_method_nonce => nonce
+            )
+        redirect '/sorta'
     end
 
     post '/create-user' do
