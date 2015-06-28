@@ -33,6 +33,7 @@ class Charity
     has n, :payments
     has n, :images
     property :cid, Serial, :key=> true
+    property :name, Text
     property :uname, Text, :required => true, :unique => true
     property :passhash, Text, :length => 60, :required => true
     property :salt, Text, :length => 30, :required => true
