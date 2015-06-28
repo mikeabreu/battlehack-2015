@@ -114,7 +114,7 @@ class Payday < Sinatra::Base
         else
             charity = Charity.get(:uname => params[:username])
             @flags << params[:password]
-            @flags << charity.salt
+            @flags << charity
 #            hash = BCrypt::Engine.hash_secret params[:password], charity[:salt]
 #            if(hash==charity[:passhash])
 #                @flags << "You are signed in as "+charity[:name]
