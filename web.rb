@@ -98,7 +98,11 @@ class Payday < Sinatra::Base
             :amount => "100.00",
             :payment_method_nonce => nonce
             )
-        redirect '/sorta'
+        if result.sucess?
+            redirect '/sorta'
+        else
+            p result.errors
+        end
     end
 
     post '/create-user' do
