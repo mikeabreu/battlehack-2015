@@ -1,24 +1,24 @@
 <table>
     <thead>
-        <Td>
-            <tr>Uid</tr>
-            <tr>Google id</tr>
-            <tr>Facebook id</tr>
-            <tr>admin</tr>
-            <tr>date_joined</tr>
-            <tr>Braintree id</tr>
-        </Td>
+        <tr>
+            <th>Uid</th>
+            <th>Google id</th>
+            <th>Facebook id</th>
+            <th>admin</th>
+            <th>date_joined</th>
+            <th>Braintdee id</th>
+        </tr>
     </thead>
     <tbody>
         <% @users.each do |user| %>
-        <td>
-            <tr><%= user[:uid] %></tr>
-            <tr><%= user[:g_id] %></tr>
-            <tr><%= user[:f_id] %></tr>
-            <tr><%= user[:admin] %></tr>
-            <tr><%= user[:date_joined] %></tr>
-            <tr><%= user[:bt_id] %></tr>
-        </td>
+        <tr>
+            <td><%= user[:uid] %></td>
+            <td><%= user[:g_id] %></td>
+            <td><%= user[:f_id] %></td>
+            <td><%= user[:admin] %></td>
+            <td><%= user[:date_joined] %></td>
+            <td><%= user[:bt_id] %></td>
+        </tr>
         <% end %>
     </tbody>
 </table>
