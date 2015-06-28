@@ -164,11 +164,15 @@
     visibility: visible;
 }
 #login-body {
+    display: flex;
+    justify-content: center
     background-color: #68b500;
+    min-height: 400px;
 }
 .jumbotron.no-image {
     background: #68b500;
     margin-bottom: 0;
+    height: 200px;
 }
 .nofucks {
     background: #68b500;
