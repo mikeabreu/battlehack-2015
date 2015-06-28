@@ -50,9 +50,6 @@ DataMapper.finalize.auto_upgrade!
 
 
 class Payday < Sinatra::Base
-    set :port, 80
-    set :bind, '104.131.174.166'
-    
     get '/' do
         erb :index
     end
