@@ -14,7 +14,7 @@ class User
     property :uid, Serial, :key=> true
     property :g_id, Text, :unique => true
     property :f_id, Text, :unique => true
-    property :bt_id, Text, :unique => true, :default => ""
+    property :bt_id, Text, :unique => true, :default => "abcd"
     property :admin, Boolean, :required => true, :default => false
     property :date_joined, DateTime, :default => Time.now
 end
@@ -73,7 +73,9 @@ class Payday < Sinatra::Base
     end
 
     get '/addbt' do
-        if(User.all(:g_id => session[:uname])[0][:bt_id]=="")
+        @flags = Array.new
+        @flags << User.all(:g_id => session[:uname])[0][:bt_id]
+        if(User.all(:g_id => session[:uname])[0][:bt_id]=="abcd")
             result = Braintree::Customer.create(
                 :first_name => 'Anonymous',
                 :last_name => 'Donor',
@@ -86,7 +88,7 @@ class Payday < Sinatra::Base
                 p result.errors
             end
         else
-            redirect '/' 
+            @flags << "Username: " + session[:uname]
         end
     end
 
