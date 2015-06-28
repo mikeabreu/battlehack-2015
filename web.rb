@@ -73,22 +73,21 @@ class Payday < Sinatra::Base
     end
 
     get '/addbt' do
-        user =User.all(:g_id => session[:user]) 
-        #        if(0][:bt_id]=='')
-        #            result = Braintree::Customer.create(
-        #                :first_name => 'Anonymous',
-        #                :last_name => 'Donor',
-        #                :payment_method_nonce => nonce_from_the_client) 
-        #            if result.success?
-        #                user = User.all(:g_id => session[:user])[0]
-        #                user.update(:bt_id => result.customer.id)
-        #                redirect '/users'
-        #            else
-        #                p result.errors
-        #            end
-        #        else
-        #            redirect '/' 
-        #        end
+        if(User.all(:g_id => session[:uname])[0][:bt_id]=='')
+            result = Braintree::Customer.create(
+                :first_name => 'Anonymous',
+                :last_name => 'Donor',
+                :payment_method_nonce => nonce_from_the_client) 
+            if result.success?
+                user = User.all(:g_id => session[:user])[0]
+                user.update(:bt_id => result.customer.id)
+                redirect '/users'
+            else
+                p result.errors
+            end
+        else
+            redirect '/' 
+        end
     end
 
     post '/create-user' do
@@ -97,9 +96,10 @@ class Payday < Sinatra::Base
             if(User.count(:g_id => params[:g_id])==0)
                 user = User.create(:g_id => params[:g_id], :bt_id => params[:bt_id])
                 user.save
-                session[:user]=params[:g_id]
+                session[:uname]=params[:g_id]
                 redirect '/addbt'
             else
+                session[:uname=params[:g_id]]
                 @flags << 'Google ID already in use. Please try logging in'
             end                
         elsif(params[:f_id]!='')
