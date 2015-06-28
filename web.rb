@@ -55,8 +55,8 @@ class Payday < Sinatra::Base
     enable :sessions
     Braintree::Configuration.environment = :sandbox
     Braintree::Configuration.merchant_id = 'yt7jzdw785q2wqb8'
-    Braintree::Configuration.public_key = 'bhmzzprhhxmgn4ch'
-    Braintree::Configuration.private_key = '18978ec977bb15b364e8049ff4d28f2b'
+    Braintree::Configuration.public_key = 'qvmdsqc7bfk7mwgd'
+    Braintree::Configuration.private_key = '1c3036a079b2542cfce490b3a917c706'
 
     get '/' do
         erb :index
@@ -78,8 +78,7 @@ class Payday < Sinatra::Base
         if(User.all(:g_id => session[:uname])[0][:bt_id]=="abcd")
             result = Braintree::Customer.create(
                 :first_name => 'Anonymous',
-                :last_name => 'Donor',
-                :payment_method_nonce => nonce_from_the_client) 
+                :last_name => 'Donor') 
             if result.success?
                 user = User.all(:g_id => session[:user])[0]
                 user.update(:bt_id => result.customer.id)
