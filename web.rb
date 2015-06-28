@@ -95,15 +95,22 @@ class Payday < Sinatra::Base
         erb :addbt
     end
 
+    get '/thankyou' do
+        @amount = session[:amount]
+        @redirect_script = '<script>location.href="/"</script>'
+        erb :thankyou
+    end
+    
     post '/checkout' do
         @flags = Array.new
         nonce = params[:payment_method_nonce]
         result = Braintree::Transaction.sale(
-            :amount => "100.00",
+            :amount => params[:amount],
             :payment_method_nonce => nonce
             )
         if result.success?
-            redirect '/sorta'
+            session[:amount] = params[:amount]
+            redirect '/thankyou'
         else
             result.errors.each do |error|
                 @flags << error.code
