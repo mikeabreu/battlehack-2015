@@ -80,7 +80,7 @@ class Payday < Sinatra::Base
     end
     
     get '/users' do
-        @users = user.all()
+        @users = User.all()
         erb :users
     end
 end
