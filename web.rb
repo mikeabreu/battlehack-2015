@@ -98,7 +98,7 @@ class Payday < Sinatra::Base
             :amount => "100.00",
             :payment_method_nonce => nonce
             )
-        if result.sucess?
+        if result.success?
             redirect '/sorta'
         else
             p result.errors
