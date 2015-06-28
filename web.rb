@@ -123,7 +123,7 @@ class Payday < Sinatra::Base
     end
     
     get '/charities' do
-        @charites = Charity.all()
+        @charities = Charity.all()
         erb :charities
     end
     
