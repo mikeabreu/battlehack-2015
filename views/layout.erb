@@ -4,9 +4,12 @@
 			<%= @title %>
 		</title>
 		
-		<link rel="stylesheet" href="main-styles.css">
+		<link rel="stylesheet" href="/css/main-styles.css">
 	</head>
 	<body>
+        <% for flag in @flags do %>
+            <p><%=  flag %></p>
+        <% end %>
         <%= yield %>
 	</body>
 </html>

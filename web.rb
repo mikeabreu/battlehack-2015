@@ -35,7 +35,7 @@ class Charity
     property :passhash, Text, :length => 60, :required => true
     property :salt, Text, :length => 30, :required => true
     property :location, Text
-    property :date_joined, Text, :default => Time.now
+    property :date_joined, Text, :default => Time.nowdata
     property :description, Text
 end
 
@@ -50,7 +50,44 @@ DataMapper.finalize.auto_upgrade!
 
 
 class Payday < Sinatra::Base
+    enable :sessions
+    
     get '/' do
         erb :index
+    end
+    
+    get '/create-user' do
+        
+    end
+    
+    post '/create-user' do
+        @flags = Array.new
+        if(params[:g_id])
+            if(!Users.count(:g_id => params[:g_id]))
+                user = User.create(:g_id => params[:g_id], :bt_id => params[:bt_id])
+                user.save
+            else
+                @flags << 'Google ID already in use. Please try logging in'
+            end                
+        elsif(params[:f_id])
+            if(!Users.count(:f_id => params[:f_id]))
+                user = User.create(:f_id => params[:f_id], :bt_id => params[:bt_id])
+                user.save
+            else
+                @flags << 'Facebook ID already in use. Please try logging in'
+            end
+        end
+    end
+    
+    post '/users' do
+        
+    end
+    
+    get '/users' do
+        -
+    end
+    
+    get '/:user' do
+        
     end
 end
