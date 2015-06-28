@@ -80,7 +80,7 @@ class Payday < Sinatra::Base
                 :first_name => 'Anonymous',
                 :last_name => 'Donor') 
             if result.success?
-                user = User.all(:g_id => session[:user])[0]
+                user = User.all(:g_id => session[:uname])[0]
                 user.update(:bt_id => result.customer.id)
                 redirect '/users'
             else
