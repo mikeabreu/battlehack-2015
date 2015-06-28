@@ -53,10 +53,13 @@ class Payday < Sinatra::Base
     enable :sessions
 
     get '/' do
-        
         erb :index
     end
-
+    
+    get '/create-user' do
+        erb :create-user 
+    end    
+    
     post '/create-user' do
         @flags = Array.new
         if(params[:g_id])
