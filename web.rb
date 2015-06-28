@@ -99,7 +99,7 @@ class Payday < Sinatra::Base
                 session[:uname]=params[:g_id]
                 redirect '/addbt'
             else
-                session[:uname=params[:g_id]]
+                session[:uname]=params[:g_id]
                 @flags << 'Google ID already in use. Please try logging in'
             end                
         elsif(params[:f_id]!='')
