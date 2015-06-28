@@ -57,7 +57,7 @@ class Payday < Sinatra::Base
     end
     
     get '/create-user' do
-        erb :create-user 
+        erb :createuser 
     end    
     
     post '/create-user' do
