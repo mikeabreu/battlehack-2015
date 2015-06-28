@@ -51,15 +51,11 @@ DataMapper.finalize.auto_upgrade!
 
 class Payday < Sinatra::Base
     enable :sessions
-    
+
     get '/' do
         erb :index
     end
-    
-    get '/create-user' do
-        
-    end
-    
+
     post '/create-user' do
         @flags = Array.new
         if(params[:g_id])
@@ -79,15 +75,4 @@ class Payday < Sinatra::Base
         end
     end
     
-    post '/users' do
-        
-    end
-    
-    get '/users' do
-        -
-    end
-    
-    get '/:user' do
-        
-    end
 end
