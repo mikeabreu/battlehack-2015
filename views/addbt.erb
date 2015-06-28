@@ -8,7 +8,7 @@
 <script>
   braintree.setup(
     // Replace this with a client token from your server
-      <%= @clientToken %>,
+      <%= '"'+@clientToken+'"' %>,
     "dropin", {
       container: "payment-form"
     });
