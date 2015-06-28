@@ -54,8 +54,6 @@ class Payday < Sinatra::Base
     set :bind, '104.131.174.166'
     
     get '/' do
-        @title = "Hello world"
-        @body = "Hello World!"
-        erb :home
+        erb :index
     end
 end
