@@ -20,10 +20,13 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        // Schema::create('charitys', function (Blueprint $table) {
-        //     $table->increments('id');
-        //     $table->
-        // });
+        Schema::create('charitys', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password', 60);
+            $table->rememberToken();
+        });
 
         Schema::create('payments', function (Blueprint $table) {
             $table->integer('charity_id');
