@@ -1,6 +1,7 @@
 <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 <script>
     function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
         var id_token = googleUser.getAuthResponse().id_token;
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://paydaycharity.org/create-user');
@@ -8,6 +9,6 @@
         xhr.onload = function() {
             console.log('Signed in as: ' + xhr.responseText);
         };
-        xhr.send('g_id=' + id);
+        xhr.send('g_id=' + profile.getEmail());
     };
 </script>
