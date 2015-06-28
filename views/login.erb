@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid nofucks">
     <div class="row">
         <div class="col-xs-12">
             <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -17,26 +17,34 @@
     <div class="row">
         <div class="col-xs-12">
             <div id="login-body" class="container-fluid">
-                <form action="/auth" method="POST">
-                    <input type="text" name="username" placeholder="Username">
-                    <input type="password" name="password" placeholder="Password">
-                    <input type="submit" value="Submit">
-                </form>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <form action="/auth" method="POST">
+                            <input type="text" name="username" placeholder="Username">
+                            <input type="password" name="password" placeholder="Password">
+                            <input type="submit" value="Submit">
+                        </form>
+                    </div>
+                </div>
 
-                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-                <script>
-                    function onSignIn(googleUser) {
-                        var profile = googleUser.getBasicProfile();
-                        var id_token = googleUser.getAuthResponse().id_token;
-                        var xhr = new XMLHttpRequest();
-                        xhr.open('POST', 'http://paydaycharity.org/create-user');
-                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                        xhr.onload = function() {
-                            location.href="/addbt";
-                        };
-                        xhr.send('g_id=' + profile.getEmail());
-                    };
-                </script>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                        <script>
+                            function onSignIn(googleUser) {
+                                var profile = googleUser.getBasicProfile();
+                                var id_token = googleUser.getAuthResponse().id_token;
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('POST', 'http://paydaycharity.org/create-user');
+                                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                xhr.onload = function() {
+                                    location.href="/addbt";
+                                };
+                                xhr.send('g_id=' + profile.getEmail());
+                            };
+                        </script>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
