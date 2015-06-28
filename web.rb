@@ -74,7 +74,7 @@ class Payday < Sinatra::Base
 
     get '/addbt' do
         @flags = Array.new
-        @flags << User.all(:g_id => session[:uname])[0][:bt_id]
+        #@flags << User.all(:g_id => session[:uname])[0][:bt_id]
         if(User.all(:g_id => session[:uname])[0][:bt_id]=="abcd")
             result = Braintree::Customer.create(
                 :first_name => 'Anonymous',
