@@ -56,5 +56,8 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::drop('users');
+        Schema::drop('charitys');
+        Schema::drop('payments');
+        Schema::drop('charity_images');
     }
 }
