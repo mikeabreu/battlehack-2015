@@ -2,8 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'data_mapper'
 require 'bcrypt'
-#require 'omniauth'
-#require 'braintree'
+require 'braintree'
 #require 'sendgrid'
 #require 'twilio'
 
@@ -54,16 +53,38 @@ DataMapper.finalize.auto_upgrade!
 
 class Payday < Sinatra::Base
     enable :sessions
-    #    use Rack::Session::Cookie
-    #    use OmniAuth::Strategies::Google
+    Braintree::Configuration.environment = :sandbox
+    Braintree::Configuration.merchant_id = 'yt7jzdw785q2wqb8'
+    Braintree::Configuration.public_key = 'bhmzzprhhxmgn4ch'
+    Braintree::Configuration.private_key = '18978ec977bb15b364e8049ff4d28f2b'
 
     get '/' do
         erb :index
     end
 
+    get '/client_token' do
+        Braintree::ClientToken.generate(
+            :customer_id => User.all(:uname => session[:user])[0][:uid]
+            )
+    end
+
     get '/create-user' do
         erb :createuser 
-    end    
+    end
+    
+    get '/addbt' do
+        result = Braintree::Customer.create(
+            :first_name = 'Anonymous',
+            :last_name = 'Donor',
+            :payment_method_nonce => nonce_from_the_client) 
+        if result.success?
+            user = User.all(:g_id => session[:user])[0]
+            user.update(:bt_id => result.customer.id)
+            redirect '/users'
+        else
+            p result.errors
+        end
+    end
 
     post '/create-user' do
         @flags = Array.new
@@ -71,6 +92,8 @@ class Payday < Sinatra::Base
             if(User.count(:g_id => params[:g_id])==0)
                 user = User.create(:g_id => params[:g_id], :bt_id => params[:bt_id])
                 user.save
+                session[:user]=params[:g_id]
+                redirect '/addbt'
             else
                 @flags << 'Google ID already in use. Please try logging in'
             end                
@@ -83,7 +106,7 @@ class Payday < Sinatra::Base
             end
         end
     end
-    
+
     post '/create' do
         @flags = Array.new
         j = params[:pass]==params[:pass2]
@@ -102,11 +125,11 @@ class Payday < Sinatra::Base
         end
         redirect '/charities'
     end
-    
+
     get '/create' do
         erb :createcharity
     end
-    
+
     post '/auth' do
         @flags = Array.new
         if(Charity.count(:uname => params[:username])==0 && Charity.count)
@@ -123,12 +146,12 @@ class Payday < Sinatra::Base
         end
         erb :index
     end
-    
+
     get '/charities' do
         @charities = Charity.all()
         erb :charities
     end
-    
+
     get '/login' do
         @google_login = '<meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="832042376397-g9gldd1bhps132no05i80favrvjk59vu.apps.googleusercontent.com">
