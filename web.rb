@@ -102,8 +102,8 @@ class Payday < Sinatra::Base
             redirect '/sorta'
         else
             result.errors.each do |error|
-                puts error.code
-                puts error.message
+                @flags << error.code
+                @flags error.message
             end
         end
     end
