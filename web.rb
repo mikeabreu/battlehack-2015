@@ -74,8 +74,8 @@ class Payday < Sinatra::Base
     
     get '/addbt' do
         result = Braintree::Customer.create(
-            :first_name = 'Anonymous',
-            :last_name = 'Donor',
+            :first_name => 'Anonymous',
+            :last_name => 'Donor',
             :payment_method_nonce => nonce_from_the_client) 
         if result.success?
             user = User.all(:g_id => session[:user])[0]
