@@ -1,3 +1,6 @@
 body {
     background: orange;
 }
+.user-table th {
+    padding: 0 25px;
+}
