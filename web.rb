@@ -48,7 +48,7 @@ class Image
     property :url, Serial, :required => true
 end
 
-DataMapper.finalize.auto_upgrade!
+DataMapper.finalize.auto_migrate!
 
 
 class Payday < Sinatra::Base
