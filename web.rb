@@ -93,7 +93,7 @@ class Payday < Sinatra::Base
         if(!k)
             @flags << 'Username Taken'
         end
-        if(J&&K)
+        if(j&&k)
             salt = BCrypt::Engine.generate_salt
             hash = BCrypt::Engine.hash_secret params[:pass], salt
             charity = Charity.new(:uname => params[:username], :name => params[:name], :passhash => hash, :salt => salt)
