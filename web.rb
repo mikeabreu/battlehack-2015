@@ -79,4 +79,8 @@ class Payday < Sinatra::Base
         end
     end
     
+    get '/users' do
+        @users = user.all()
+        erb :users
+    end
 end

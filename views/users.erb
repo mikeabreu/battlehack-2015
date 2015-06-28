@@ -1,0 +1,23 @@
+<table>
+    <thead>
+        <Td>
+            <tr>Uid</tr>
+            <tr>Google id</tr>
+            <tr>Facebook id</tr>
+            <tr>admin</tr>
+            <tr>date_joined</tr>
+            <tr>Braintree id</tr>
+        </Td>
+    </thead>
+    <tbody>
+        <% @users.each do |user| %>
+        <td>
+            <tr><%= user[:uid] %></tr>
+            <tr><%= user[:g_id] %></tr>
+            <tr><%= user[:f_id] %></tr>
+            <tr><%= user[:admin] %></tr>
+            <tr><%= user[:date_joined] %></tr>
+            <tr><%= user[:bt_id] %></tr>
+        </td>
+    </tbody>
+</table>
