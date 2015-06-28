@@ -5,8 +5,6 @@ require 'data_mapper'
 #require 'sendgrid'
 #require 'twilio'
 
-set :port, 80
-
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/payday.db")
 
 class User
@@ -51,10 +49,13 @@ end
 DataMapper.finalize.auto_upgrade!
 
 
-class Payday > Sinatra::Base
+class Payday < Sinatra::Base
+    set :port, 80
+    set :bind, '104.131.174.166'
+    
     get '/' do
         @title = "Hello world"
-        @body = "Fuck Y'all<br />I got our first route working<br />Oh and the db is setup too"
+        @body = "Hello World!"
         erb :home
     end
 end
