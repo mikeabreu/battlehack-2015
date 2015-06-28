@@ -35,7 +35,7 @@ class Charity
     property :passhash, Text, :length => 60, :required => true
     property :salt, Text, :length => 30, :required => true
     property :location, Text
-    property :date_joined, Text, :default => Time.nowdata
+    property :date_joined, Text, :default => Time.now
     property :description, Text
 end
 
