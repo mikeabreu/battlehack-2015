@@ -29,10 +29,22 @@ class CreateUsersTable extends Migration
         });
 
         Schema::create('payments', function (Blueprint $table) {
-            $table->integer('charity_id');
-            $table->integer('user_id');
+            $table->integer('charity_id')->unsigned()
+                ->references('id')->on('charitys')
+                ->onDelete('cascade');
+            $table->integer('user_id')->unsigned()
+                ->references('id')->on('users')
+                ->onDelete('cascade');
             $table->integer('amount');
             $table->timestamps();
+        });
+
+        Schema::create('charity_images', function (Blueprint $table) {
+            $table->integer('charity_id')->unsigned()
+                ->references('id')->on('charitys')
+                ->onDelete('cascade');
+            $table->integer('order_num');
+            $table->string('url');
         });
     }
 
