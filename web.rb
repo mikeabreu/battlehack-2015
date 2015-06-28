@@ -64,7 +64,7 @@ class Payday < Sinatra::Base
 
     get '/client_token' do
         Braintree::ClientToken.generate(
-            :customer_id => User.all(:uname => session[:user])[0][:uid]
+            :customer_id => User.all(:uname => session[:uname])[0][:uid]
             )
     end
 
