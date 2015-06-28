@@ -103,7 +103,7 @@ class Payday < Sinatra::Base
         else
             result.errors.each do |error|
                 @flags << error.code
-                @flags error.message
+                @flags << error.message
             end
         end
     end
