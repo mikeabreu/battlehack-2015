@@ -109,16 +109,18 @@ class Payday < Sinatra::Base
     
     post '/auth' do
         @flags = Array.new
-        if(Charity.count(:uname => params[:username])==0)
+        if(Charity.count(:uname => params[:username])==0 && Charity.count)
             @flags << 'Username not registered'
         else
-            charity = Charity.get(:uname => params[:username]) 
-            hash = BCrypt::Engine.hash_secret params[:password], charity[:salt]
-            if(hash==charity[:passhash])
-                @flags << "You are signed in as "+charity[:name]
-            else
-                @flags << "Invalid Username/Password Combination"
-            end
+            charity = Charity.get(:uname => params[:username])
+            @flags << params[:password]
+            @flags << charity[:salt]
+#            hash = BCrypt::Engine.hash_secret params[:password], charity[:salt]
+#            if(hash==charity[:passhash])
+#                @flags << "You are signed in as "+charity[:name]
+#            else
+#                @flags << "Invalid Username/Password Combination"
+#            end
         end
         erb :index
     end
