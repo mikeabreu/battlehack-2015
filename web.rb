@@ -52,20 +52,17 @@ DataMapper.finalize.auto_upgrade!
 
 class Payday < Sinatra::Base
     enable :sessions
-#    use Rack::Session::Cookie
-#    use OmniAuth::Strategies::Google
+    #    use Rack::Session::Cookie
+    #    use OmniAuth::Strategies::Google
 
     get '/' do
         erb :index
     end
-    
+
     get '/create-user' do
-        @google_login = '<meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>';
         erb :createuser 
     end    
-    
+
     post '/create-user' do
         @flags = Array.new
         if(params[:g_id]!='')
@@ -84,7 +81,14 @@ class Payday < Sinatra::Base
             end
         end
     end
-    
+
+    get 'login' do
+        @google_login = '<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>';
+        erb :login
+    end
+
     get '/users' do
         @users = User.all()
         erb :users
